@@ -47,7 +47,7 @@ const createList = async (workSpaceID, name, token) => {
 // update a list and add it to the server to the associated user
 // /api/workspaces/:workspaceid/lists/:lisid
 const updateList = async (workSpaceID, listID, listData, token) => {
-  const response = await axios.post(
+  const response = await axios.put(
     API_URI + workSpaceID + "/lists/" + listID,
     listData,
     {

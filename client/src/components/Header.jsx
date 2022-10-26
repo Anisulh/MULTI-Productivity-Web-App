@@ -38,7 +38,7 @@ function Header() {
   );
   const [userMenuAnchor, setUserMenuAnchor] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const settings = ["Profile", "Logout"];
+  const settings = ["Logout"];
 
   const onLogout = () => {
     dispatch(logout());
@@ -76,7 +76,7 @@ function Header() {
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -96,10 +96,9 @@ function Header() {
                   color: "black",
                   display: "inline",
                   textDecoration: "none",
-                  cursor: 'pointer',
-                 
+                  cursor: "pointer",
                 }}
-                onClick={()=> navigate('/')}
+                onClick={() => navigate("/")}
               >
                 MULTI
               </Typography>
@@ -397,10 +396,9 @@ function Header() {
                     variant="h5"
                     component="h1"
                     onClick={() => {
-                      navigate('/')
+                      navigate("/");
                     }}
-                    sx={{ mr: 7, cursor: 'pointer' }}
-
+                    sx={{ mr: 7, cursor: "pointer" }}
                   >
                     MULTI
                   </Typography>

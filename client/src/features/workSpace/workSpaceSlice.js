@@ -55,7 +55,6 @@ export const updateWorkSpace = createAsyncThunk(
   async (workSpaceData, thunkAPI) => {
     try {
       let token = thunkAPI.getState().auth.user.token;
-      console.log(workSpaceData)
       const { workSpaceID, workSpaceInfo } = workSpaceData;
       return await workSpaceService.updateWorkSpace(
         workSpaceID,
@@ -139,13 +138,13 @@ const workSpaceSlice = createSlice({
         state.isSuccess = true;
         state.workSpaces = state.workSpaces.map((workSpace) => {
           const updatedWorkspaceID = action.payload.id
-          if (workSpace._id ===  updatedWorkspaceID){
+          if (workSpace._id === updatedWorkspaceID) {
             workSpace = action.payload
           }
           return workSpace
         })
       })
-      .addCase(updateWorkSpace.rejected, (state, action)=> {
+      .addCase(updateWorkSpace.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./pages/Dashboard";
 import ListPage from "./pages/ListPage";
-import Profile from "./pages/Profile";
+
 import BoardView from "./pages/BoardView";
 import Home from "./pages/Home";
 import { useSelector } from "react-redux";
@@ -33,7 +33,6 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<Home />} />
 
-            <Route path="/profile" element={<Profile />} />
             <Route path="/listview" element={<ListView />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/:workSpaceID" element={<ListPage />} />

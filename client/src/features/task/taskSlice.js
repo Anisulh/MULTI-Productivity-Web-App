@@ -69,10 +69,13 @@ export const updateTask = createAsyncThunk(
   async (taskData, thunkAPI) => {
     try {
       let token = thunkAPI.getState().auth.user.token;
-      const { workSpaceID, listID, taskID, taskInfo } = taskData;
+      const { taskID, taskInfo } = taskData;
+      const workSpace = taskInfo.workSpace
+      const list = taskInfo.list
+      console.log(taskData)
       return await taskService.updateTask(
-        workSpaceID,
-        listID,
+        workSpace,
+        list,
         taskID,
         taskInfo,
         token

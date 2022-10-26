@@ -7,7 +7,9 @@ import { useDispatch } from "react-redux";
 
 function ListForm({ workSpaceID, handleListClose }) {
   const dispatch = useDispatch();
-  const [listFormData, setListFormData] = useState({ name: "" });
+  const [listFormData, setListFormData] = useState({
+    name: "",
+  });
   const { name } = listFormData;
 
   const onFormChange = (e) => {

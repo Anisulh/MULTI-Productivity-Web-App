@@ -63,9 +63,9 @@ const updateWorkSpace = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
-
+  delete req.body._id
   const updatedWorkSpace = await WorkSpace.findOneAndUpdate(
-    { id: req.user.id },
+    { _id: req.params.workspaceid },
     req.body,
     { new: true }
   );

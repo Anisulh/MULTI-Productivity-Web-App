@@ -71,6 +71,7 @@ export const updateList = createAsyncThunk(
     try {
       let token = thunkAPI.getState().auth.user.token;
       const { workSpaceID, listID, listInfo } = listData;
+      console.log(workSpaceID, listID, listInfo)
       return await listService.updateList(workSpaceID, listID, listInfo, token);
     } catch (error) {
       const message = errorHandler(error);
@@ -156,7 +157,7 @@ const listSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(updateList.pending, (state, ) => {
+      .addCase(updateList.pending, (state,) => {
         state.isLoading = true;
       })
       .addCase(updateList.fulfilled, (state, action) => {
@@ -164,13 +165,13 @@ const listSlice = createSlice({
         state.isSuccess = true;
         state.lists = state.lists.map((list) => {
           const updatedListID = action.payload.id
-          if(list._id === updatedListID){
+          if (list._id === updatedListID) {
             list = action.payload
           }
           return list
         })
       })
-      .addCase(updateList.rejected, (state, action)=> {
+      .addCase(updateList.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

@@ -19,36 +19,15 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
-import { updateTask } from "../features/task/taskSlice";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import UpdateTaskForm from "./UpdateTaskForm";
 
 function TaskCard({ taskItem }) {
-  const dispatch = useDispatch();
   const [isReadMore, setIsReadMore] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [updateFormData, setUpdateFormData] = useState({
-    name: taskItem.name,
-  });
-  const { name } = updateFormData;
-
-  const onFormChange = (e) => {
-    setUpdateFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const { lists } = useSelector((state) => state.list);
   const handleFormOpen = () => {
     setShowUpdateForm(true);
-  };
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    const taskInfo = { ...taskItem };
-    taskInfo.name = name;
-    console.log(taskInfo);
-    const taskID = taskItem._id;
-    dispatch(updateTask({ taskID, taskInfo }));
-    setShowUpdateForm(false);
   };
   const title = (
     <Typography variant="h6" component="div" textAlign={"left"}>
@@ -69,7 +48,7 @@ function TaskCard({ taskItem }) {
           sx={{ marginBottom: "-25px" }}
           action={
             <IconButton aria-label="settings">
-              <MoreMenu item={taskItem} />
+              <MoreMenu item={taskItem} itemFormOpen={handleFormOpen} />
             </IconButton>
           }
           title={title}
@@ -118,14 +97,14 @@ function TaskCard({ taskItem }) {
         </CardActions>
       </Card>
       <Dialog open={showUpdateForm}>
-        <DialogTitle>Let's Create a Workspace</DialogTitle>
+        <DialogTitle>Edit Task</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Fill out this form to create a workspace
-          </DialogContentText>
-          {
-            //! add update task form
-          }
+          <DialogContentText>Fill out this form to edit task</DialogContentText>
+          <UpdateTaskForm
+            lists={lists}
+            taskItem={taskItem}
+            setShowUpdateForm={setShowUpdateForm}
+          />
         </DialogContent>
       </Dialog>
     </>

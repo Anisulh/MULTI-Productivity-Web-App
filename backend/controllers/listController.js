@@ -61,6 +61,7 @@ const createList = asyncHandler(async (req, res) => {
 const updateList = asyncHandler(async (req, res) => {
   const workSpace = await WorkSpace.findById(req.params.workspaceid);
   const list = await List.findById(req.params.listid);
+  console.log(req.body)
   if (!req.body.name) {
     res.status(400);
     throw new Error("Please add list name");
@@ -86,9 +87,9 @@ const updateList = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
-
+  delete req.body._id
   const updatedList = await List.findOneAndUpdate(
-    { id: req.params.listid },
+    { _id: req.params.listid },
     req.body,
     { new: true }
   );

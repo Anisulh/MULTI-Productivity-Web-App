@@ -94,9 +94,9 @@ const updateTask = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("List not authorized");
   }
-
+  delete req.body._id;
   const updatedTask = await Task.findOneAndUpdate(
-    { id: req.params.taskid },
+    { _id: req.params.taskid },
     req.body,
     { new: true }
   );

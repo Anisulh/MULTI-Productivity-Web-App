@@ -33,10 +33,10 @@ const createWorkSpace = async (workSpace, token) => {
 // put a workspace from the associated user
 // /api/workspaces/:workspaceID
 const updateWorkSpace = async (workSpaceID, workSpaceData, token) => {
-  console.log(workSpaceData)
   const response = await axios.put(API_URI + workSpaceID, workSpaceData, {
     headers: { Authorization: `Bearer ${token}` }
-});
+  });
+  console.log(response)
   return response.data;
 };
 

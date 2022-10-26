@@ -35,7 +35,7 @@ const getTasks = async (workSpaceID, listID, token) => {
 // create a task and add it to the server to the associated user and list
 // /api/workspaces/:workspaceid/lists/:listid/tasks/:taskid
 const createTask = async (workSpaceID, listID, taskInfo, token) => {
-  
+
   const response = await axios.post(
     API_URI + workSpaceID + "/lists/" + listID + "/tasks",
     taskInfo,
@@ -49,13 +49,15 @@ const createTask = async (workSpaceID, listID, taskInfo, token) => {
 // update a task from the associated user and list
 // /api/workspaces/:workspaceid/lists/:listid/tasks/:taskid
 const updateTask = async (workSpaceID, listID, taskID, taskData, token) => {
-  const response = await axios.delete(
+  console.log(workSpaceID, listID, taskID, taskData)
+  const response = await axios.put(
     API_URI + workSpaceID + "/lists/" + listID + "/tasks/" + taskID,
     taskData,
     {
       headers: { Authorization: `Bearer ${token}` },
     }
   );
+  console.log(response)
   return response.data;
 };
 
