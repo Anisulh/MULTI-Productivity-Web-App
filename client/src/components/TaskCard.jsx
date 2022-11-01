@@ -16,8 +16,9 @@ function classNames(...classes) {
 function TaskCard({ task }) {
   const dispatch = useDispatch();
   const { taskName, description, dueDate, tags } = task;
-
-  const [isReadMore, setIsReadMore] = useState(false);
+  const newDate = dueDate.substring(0, 10).replace(/-/g, "/");
+  const parsedDate = parse(newDate, "yyyy/MM/dd", new Date());
+  const [isReadMore, setIsReadMore] = useState(description.length > 150);
   const [formOpen, setFormOpen] = useState(false);
   const { lists } = useSelector((state) => state.list);
   const handleClose = () => {
@@ -87,7 +88,27 @@ function TaskCard({ task }) {
           </Menu.Items>
         </Transition>
       </Menu>
-      <p className="text-sm">{description}</p>
+      <p className="text-sm">
+        {isReadMore ? description.substring(0, 150) + "..." : description}
+      </p>
+      {description.length > 150 ? (
+        isReadMore ? (
+          <button
+            className="text-indigo-500 hover:text-indigo-800 p-2 rounded pl-0"
+            onClick={() => setIsReadMore(false)}
+          >
+            Read More
+          </button>
+        ) : (
+          <button
+            className="text-indigo-500 hover:text-indigo-800 p-2 rounded pl-0"
+            onClick={() => setIsReadMore(true)}
+          >
+            Read less
+          </button>
+        )
+      ) : null}
+
       <div className="px-2 mt-5">
         {tags?.map((tag) => {
           return (
@@ -103,7 +124,9 @@ function TaskCard({ task }) {
       <div className="border mt-2"></div>
       <div className="flex items-center justify-between py-3">
         <p className="text-sm">Due Date:</p>
-        <p className="text-sm">{dueDate.substring(0, 10)}</p>
+        <p className="text-sm">
+          {parsedDate.toString().split(" ").slice(1, 4).join(" ")}
+        </p>
       </div>
       <div
         className={`absolute z-50 top-0 left-0 flex items-center h-screen w-screen justify-center backdrop-brightness-50 ${

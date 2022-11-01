@@ -7,11 +7,13 @@ import Spinner from "../components/Spinner";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import MobileNav from "../components/MobileNav";
 import SideNavigation from "../components/SideNavigation";
-import { getTasks } from "../features/task/taskSlice";
-import parseISO from "date-fns/parseISO";
+import { getAllTasks } from "../features/task/taskSlice";
 import startOfToday from "date-fns/startOfToday";
 import TaskCard from "../components/TaskCard";
 import WorkSpaceForm from "../components/forms/WorkSpaceForm";
+import Tooltip from "../components/ToolTip";
+import parse from "date-fns/parse";
+import isAfter from "date-fns/isAfter";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -21,7 +23,17 @@ function Dashboard() {
     (state) => state.workSpace
   );
   const { tasks } = useSelector((state) => state.task);
-  const [upcomingTasks, setUpcomingTasks] = useState(tasks);
+  const upcomingTasks = tasks?.filter((task) => {
+    return isAfter(
+      parse(
+        task.dueDate.substring(0, 10).replace(/-/g, "/"),
+        "yyyy/MM/dd",
+        new Date()
+      ),
+      startOfToday()
+    );
+  });
+
   const [formOpen, setFormOpen] = useState(false);
   const handleClose = () => {
     setFormOpen(false);
@@ -32,18 +44,13 @@ function Dashboard() {
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate("/");
     }
     if (isError) {
       console.log(message);
     }
     dispatch(getWorkSpaces());
-    dispatch(getTasks());
-    setUpcomingTasks((prevState) => {
-      prevState?.filter((task) => {
-        return parseISO(task.dueDate) > startOfToday();
-      });
-    });
+    dispatch(getAllTasks());
   }, [dispatch, isError, message, navigate, user]);
 
   if (isLoading) {
@@ -57,28 +64,35 @@ function Dashboard() {
         <div className="h-screen flex-1 p-7">
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <h2 className="text-xl mt-10 -mb-10 font-medium">
-            Welcome, {user.firstName}
+            Welcome, {user?.firstName}
           </h2>
-          <div className="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+          <div className="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-14 lg:mt-16 lg:px-8 xl:mt-20">
             <h2 className="text-2xl font-semibold">Workspaces</h2>
-            {workSpaces?.map((workSpace) => {
-              return (
-                <WorkSpaceCard workSpace={workSpace} key={workSpace._id} />
-              );
-            })}
+            <div className="pb-5 sm:h-36 sm:overflow-auto">
+              {workSpaces?.map((workSpace) => {
+                return (
+                  <WorkSpaceCard workSpace={workSpace} key={workSpace._id} />
+                );
+              })}
+            </div>
           </div>
-          <div className="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+          <div className="mx-auto mt-8 max-w-7xl px-4 sm:mt-10 sm:px-6 md:mt-12  lg:px-8 ">
             <h2 className="text-2xl font-semibold">Upcoming Tasks</h2>
-            {upcomingTasks?.map((task) => {
-              return <TaskCard task={task} key={task._id} />;
-            })}
+            <div className="pb-5 sm:h-96 sm:overflow-auto">
+              {upcomingTasks?.map((task) => {
+                return <TaskCard task={task} key={task._id} />;
+              })}
+            </div>
           </div>
-          <button
-            className=" absolute bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
-            onClick={handleOpen}
-          >
-            <PlusIcon className="h-6 w-6" />
-          </button>
+          <Tooltip message={"Create workspace"}>
+            <button
+              className=" absolute bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
+              onClick={handleOpen}
+            >
+              <PlusIcon className="h-6 w-6" />
+            </button>
+          </Tooltip>
+
           <div
             className={`absolute top-0 left-0 flex items-center h-screen w-screen justify-center backdrop-brightness-50 ${
               formOpen ? "block" : "hidden"

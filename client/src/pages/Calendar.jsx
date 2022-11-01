@@ -16,14 +16,13 @@ import isSameDay from "date-fns/isSameDay";
 import isSameMonth from "date-fns/isSameMonth";
 import isToday from "date-fns/isToday";
 import parse from "date-fns/parse";
-import parseISO from "date-fns/parseISO";
 import MobileNav from "../components/MobileNav";
 import SideNavigation from "../components/SideNavigation";
 import ChevronRightIcon from "@heroicons/react/24/outline/ChevronRightIcon";
 import ChevronLeftIcon from "@heroicons/react/24/outline/ChevronLeftIcon";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { getAllLists } from "../features/list/listSlice";
-import GeneralTaskForm from "../components/forms/GeneralTaskForm";
+import CalendarTaskForm from "../components/forms/CalendarTaskForm";
 import { getWorkSpaces } from "../features/workSpace/workSpaceSlice";
 
 function classNames(...classes) {
@@ -74,9 +73,6 @@ export default function Calendar() {
     setDate(selectedDay);
   }, [dispatch, isError, message, navigate, selectedDay, user]);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
   const today = startOfToday();
 
   const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
@@ -97,8 +93,19 @@ export default function Calendar() {
   }
 
   const selectedDayTasks = tasks?.filter((task) =>
-    isSameDay(parseISO(task.dueDate), selectedDay)
+    isSameDay(
+      parse(
+        task.dueDate.substring(0, 10).replace(/-/g, "/"),
+        "yyyy/MM/dd",
+        new Date()
+      ),
+      selectedDay
+    )
   );
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div>
@@ -201,7 +208,16 @@ export default function Calendar() {
 
                           <div className="w-1 h-1 mx-auto mt-1">
                             {tasks.some((task) =>
-                              isSameDay(parseISO(task.dueDate), day)
+                              isSameDay(
+                                parse(
+                                  task.dueDate
+                                    .substring(0, 10)
+                                    .replace(/-/g, "/"),
+                                  "yyyy/MM/dd",
+                                  new Date()
+                                ),
+                                day
+                              )
                             ) && (
                               <div className="w-1 h-1 rounded-full bg-red-500"></div>
                             )}
@@ -226,7 +242,7 @@ export default function Calendar() {
                       )}
                     </div>
 
-                    <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+                    <ol className="mt-4 space-y-1 text-sm leading-6">
                       {selectedDayTasks.length > 0 ? (
                         selectedDayTasks.map((task) => (
                           <TaskCard task={task} key={task.id} />
@@ -246,7 +262,7 @@ export default function Calendar() {
             formOpen ? "block" : "hidden"
           }`}
         >
-          <GeneralTaskForm
+          <CalendarTaskForm
             lists={lists}
             workSpaces={workSpaces}
             handleClose={handleClose}

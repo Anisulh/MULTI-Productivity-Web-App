@@ -1,17 +1,11 @@
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
-import React from "react";
 
 function Spinner() {
   return (
-    <div>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={true}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </div>
+    <div class="flex justify-center items-center">
+  <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
   );
 }
 

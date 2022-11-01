@@ -3,18 +3,13 @@ import { createTask } from "../../features/task/taskSlice";
 import { useDispatch } from "react-redux";
 import format from "date-fns/format";
 
-function GeneralTaskForm({
-  lists = [],
-  handleClose,
-  date = "",
-  workSpaces = [],
-}) {
+function CalendarTaskForm({ lists, handleClose, date, workSpaces }) {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     taskName: "",
     description: "",
     tagString: "",
-    dueDate: date ? format(date, "yyyy-MM-dd") : "",
+    dueDate: format(date, "yyyy-MM-dd"),
   });
   const [listID, setListID] = useState(lists[0]?._id);
   const [workSpaceID, setWorkSpaceID] = useState(workSpaces[0]?._id);
@@ -58,22 +53,21 @@ function GeneralTaskForm({
         Create Your Task
       </h1>
       <form onSubmit={onFormSubmit}>
-        {workSpaces !== [] && workSpaces ? (
-          <select
-            name="workSpaces"
-            onChange={(e) => setWorkSpaceID(e.target.value)}
-            className="w-full border-2 rounded-md mb-2 p-2 sm:text-lg"
-            required={workSpaces !== [] ? true : false}
-          >
-            {workSpaces?.map((workspace) => {
-              return (
-                <option value={workspace._id} key={workspace._id}>
-                  {workspace.name}
-                </option>
-              );
-            })}
-          </select>
-        ) : null}
+        <select
+          name="workSpaces"
+          onChange={(e) => setWorkSpaceID(e.target.value)}
+          className="w-full border-2 rounded-md mb-2 p-2 sm:text-lg"
+          required
+        >
+          {workSpaces?.map((workspace) => {
+            return (
+              <option value={workspace._id} key={workspace._id}>
+                {workspace.name}
+              </option>
+            );
+          })}
+        </select>
+
         <select
           name="list"
           onChange={(e) => setListID(e.target.value)}
@@ -154,4 +148,4 @@ function GeneralTaskForm({
   );
 }
 
-export default GeneralTaskForm;
+export default CalendarTaskForm;

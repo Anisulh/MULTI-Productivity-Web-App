@@ -13,6 +13,7 @@ import { getLists } from "../features/list/listSlice";
 import { getWorkSpaceTasks } from "../features/task/taskSlice";
 import SideNavigation from "../components/SideNavigation";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import Tooltip from "../components/ToolTip";
 
 function WorkSpaceBoard() {
   const navigate = useNavigate();
@@ -77,12 +78,15 @@ function WorkSpaceBoard() {
           </div>
         </div>
       </div>
-      <button
-        className=" absolute bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
-        onClick={handleOpen}
-      >
-        <PlusIcon className="h-6 w-6" />
-      </button>
+      <Tooltip message={"Add list"}>
+        <button
+          className=" absolute bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
+          onClick={handleOpen}
+        >
+          <PlusIcon className="h-6 w-6" />
+        </button>
+      </Tooltip>
+
       <div
         className={`absolute top-0 left-0 flex items-center h-screen w-screen justify-center backdrop-brightness-50 ${
           formOpen ? "block" : "hidden"

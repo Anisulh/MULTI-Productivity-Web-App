@@ -35,6 +35,10 @@ function WorkSpaceForm({ workSpace = {}, handleClose, update = false }) {
     } else {
       dispatch(createWorkSpace(formData));
     }
+    setFormData({
+      name: "",
+      color: ""
+    })
     handleClose();
   };
 

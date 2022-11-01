@@ -15,15 +15,23 @@ import MobileNav from "../components/MobileNav";
 import SideNavigation from "../components/SideNavigation";
 import TaskModal from "../components/TaskModal";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import GeneralTaskForm from "../components/forms/GeneralTaskForm";
+import ListTaskForm from "../components/forms/ListTaskForm";
+import Tooltip from "../components/ToolTip";
 
 function List({ list, tasks, setSelectedTask }) {
   const [listDrop, setListDrop] = useState(false);
 
   return (
     <div>
-      <h3 className="flex items-center justify-between p-1 px-3 ml-5 border-b">
-        {list.name}
+      <div className="flex items-center justify-between p-1 px-3 ml-5 border-b">
+        <h2
+          className="flex-1 cursor-pointer"
+          onClick={() => {
+            setListDrop(!listDrop);
+          }}
+        >
+          {list.name}
+        </h2>
         {listDrop ? (
           <ChevronDownIcon
             className="h-4 cursor-pointer"
@@ -39,7 +47,7 @@ function List({ list, tasks, setSelectedTask }) {
             }}
           />
         )}
-      </h3>
+      </div>
       {listDrop &&
         tasks.map((task) => {
           return (
@@ -55,7 +63,6 @@ function List({ list, tasks, setSelectedTask }) {
 }
 
 function Task({ task, setSelectedTask }) {
-  const dispatch = useDispatch();
   return (
     <h4
       className="flex items-center justify-between p-1 px-3 ml-10 border-b cursor-pointer"
@@ -72,11 +79,18 @@ function Workspace({ workSpace, lists, tasks, setSelectedTask }) {
   const [workspaceDrop, setWorkspaceDrop] = useState(true);
   return (
     <div className="w-full mb-5 ">
-      <h2
+      <div
         className="flex items-center justify-between w-full p-1 px-3
                    border-b font-medium"
       >
-        {workSpace.name}
+        <h2
+          className="flex-1 cursor-pointer "
+          onClick={() => {
+            setWorkspaceDrop(!workspaceDrop);
+          }}
+        >
+          {workSpace.name}
+        </h2>
         {workspaceDrop ? (
           <ChevronDownIcon
             className="h-4 cursor-pointer"
@@ -92,7 +106,7 @@ function Workspace({ workSpace, lists, tasks, setSelectedTask }) {
             }}
           />
         )}
-      </h2>
+      </div>
       {workspaceDrop && (
         <div>
           {lists?.map((list) => {
@@ -194,18 +208,21 @@ export default function WorkSpaceList() {
               </div>
             </div>
           </div>
-          <button
-            className=" absolute bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
-            onClick={handleOpen}
-          >
-            <PlusIcon className="h-6 w-6" />
-          </button>
+          <Tooltip message={"Add Task"}>
+            <button
+              className=" absolute bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
+              onClick={handleOpen}
+            >
+              <PlusIcon className="h-6 w-6" />
+            </button>
+          </Tooltip>
+
           <div
             className={`absolute z-50 top-0 left-0 flex items-center h-screen w-screen justify-center backdrop-brightness-50 ${
               formOpen ? "block" : "hidden"
             }`}
           >
-            <GeneralTaskForm lists={lists} handleClose={handleClose} />
+            <ListTaskForm lists={lists} handleClose={handleClose} />
           </div>
         </div>
       </div>
