@@ -21,7 +21,7 @@ function WorkSpaceBoard() {
   const { workSpaceID } = useParams();
   const { user } = useSelector((state) => state.auth);
   const { lists } = useSelector((state) => state.list);
-  const { workSpaces } = useSelector((state) => state.workSpace);
+  const { workSpaces, workSpace } = useSelector((state) => state.workSpace);
   const { tasks, isError, isLoading, message } = useSelector(
     (state) => state.task
   );
@@ -63,17 +63,26 @@ function WorkSpaceBoard() {
             </Link>
             <Link
               to={`/workspaces/${workSpaceID}`}
-              className="px-5 text-md font-medium hover:text-indigo-600 link-underline link-underline-black"
+              className="px-5 text-md textUnderline text-indigo-600"
             >
               Board View
             </Link>
           </div>
           <div className="p-7 h-screen">
-            <h1 className="text-2xl font-bold">Workspace: BoardView</h1>
+            <h1 className="text-2xl font-bold">
+              <span>{workSpace.name}</span>
+              <span>: BoardView</span>
+            </h1>
             <div className=" sm:flex height-85 overflow-y-hidden z-50">
-              { lists.length > 0 ? lists?.map((list) => {
-                return <ListColumn key={list._id} list={list} tasks={tasks} />;
-              }) : <p>No lists to show</p>}
+              {lists.length > 0 ? (
+                lists?.map((list) => {
+                  return (
+                    <ListColumn key={list._id} list={list} tasks={tasks} />
+                  );
+                })
+              ) : (
+                <p>No lists to show</p>
+              )}
             </div>
           </div>
         </div>

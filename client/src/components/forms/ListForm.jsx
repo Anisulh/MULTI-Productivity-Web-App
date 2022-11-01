@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createList, updateList } from "../../features/list/listSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { HexColorPicker } from "react-colorful";
 
 function ListForm({ list = {}, handleClose, update = false }) {
   const dispatch = useDispatch();
@@ -14,7 +15,10 @@ function ListForm({ list = {}, handleClose, update = false }) {
           color: "",
         }
   );
-  const { name, color } = formData;
+  const { name } = formData;
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const [color, setColor] = useState(list ? list?.color : "#ffffff");
+
   const onFormChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -30,6 +34,7 @@ function ListForm({ list = {}, handleClose, update = false }) {
       const listData = { workSpaceID, listID, listInfo };
       dispatch(updateList(listData));
     } else {
+      formData.color = color;
       const listData = { workSpaceID, formData };
       dispatch(createList(listData));
     }
@@ -59,12 +64,29 @@ function ListForm({ list = {}, handleClose, update = false }) {
             className="block w-full border-2 p-2 mb-5 rounded-md sm:text-lg mr-5"
             placeholder="Hexadecimal Color Code"
             value={color}
-            onChange={onFormChange}
+            onChange={(e) => setColor(e.target.value)}
           />
           <div
-            className="h-6 w-6 -mt-5 border "
+            className="h-8 w-8 -mt-5 border-2 rounded-md cursor-pointer  "
             style={{ backgroundColor: color }}
+            onClick={() => setShowColorPicker(true)}
           ></div>
+        </div>
+        <div
+          className={`absolute top-0 left-0 flex items-center h-screen w-screen justify-center backdrop-brightness-50 ${
+            showColorPicker ? "block" : "hidden"
+          }`}
+        >
+          <div className="bg-white p-5 rounded-md">
+            <HexColorPicker color={color} onChange={setColor} />
+            <button
+              type="button"
+              onClick={() => setShowColorPicker(false)}
+              className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-2 text-base font-medium text-white hover:bg-indigo-700 md:px-10 md:text-lg mt-3"
+            >
+              Done
+            </button>
+          </div>
         </div>
 
         <button

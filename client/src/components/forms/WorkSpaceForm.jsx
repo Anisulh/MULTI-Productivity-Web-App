@@ -4,9 +4,11 @@ import {
   createWorkSpace,
   updateWorkSpace,
 } from "../../features/workSpace/workSpaceSlice";
+import { HexColorPicker } from "react-colorful";
 
 function WorkSpaceForm({ workSpace = {}, handleClose, update = false }) {
   const dispatch = useDispatch();
+  const [showColorPicker, setShowColorPicker] = useState(false);
   const [formData, setFormData] = useState(
     update && workSpace !== {}
       ? { ...workSpace }
@@ -15,7 +17,8 @@ function WorkSpaceForm({ workSpace = {}, handleClose, update = false }) {
           color: "",
         }
   );
-  const { name, color } = formData;
+  const [color, setColor] = useState(workSpace ? workSpace?.color : "#ffffff")
+  const { name } = formData;
   const onFormChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -33,12 +36,15 @@ function WorkSpaceForm({ workSpace = {}, handleClose, update = false }) {
       const workSpaceID = workSpace._id;
       dispatch(updateWorkSpace({ workSpaceID, workSpaceInfo }));
     } else {
-      dispatch(createWorkSpace(formData));
+      const workSpaceData = formData;
+      workSpaceData.color = color
+      dispatch(createWorkSpace(workSpaceData));
     }
     setFormData({
       name: "",
-      color: ""
-    })
+      color: "",
+    });
+    setColor("")
     handleClose();
   };
 
@@ -64,12 +70,30 @@ function WorkSpaceForm({ workSpace = {}, handleClose, update = false }) {
             className="block w-full border-2 p-2 mb-5 rounded-md sm:text-lg mr-5"
             placeholder="Hexadecimal Color Code"
             value={color}
-            onChange={onFormChange}
+            onChange={(e) => setColor(e.target.value)}
           />
+
           <div
-            className="h-6 w-6 -mt-5 border "
+            className="h-8 w-8 -mt-5 border-2 rounded-md cursor-pointer  "
             style={{ backgroundColor: color }}
+            onClick={() => setShowColorPicker(true)}
           ></div>
+          <div
+            className={`absolute top-0 left-0 flex items-center h-screen w-screen justify-center backdrop-brightness-50 ${
+              showColorPicker ? "block" : "hidden"
+            }`}
+          >
+            <div className="bg-white p-5 rounded-md">
+              <HexColorPicker color={color} onChange={setColor} />
+              <button
+                type="button"
+                onClick={() => setShowColorPicker(false)}
+                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-2 text-base font-medium text-white hover:bg-indigo-700 md:px-10 md:text-lg mt-3"
+              >
+                Done
+              </button>
+            </div>
+          </div>
         </div>
 
         <button

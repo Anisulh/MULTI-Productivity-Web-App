@@ -30,7 +30,6 @@ function App() {
             />
             <Route path="/calendar" element={<Calendar />} />
             <Route path='*' element={<ErrorPage />} />
-
           </Routes>
         </div>
       </Router>

@@ -48,17 +48,23 @@ function List({ list, tasks, setSelectedTask }) {
           />
         )}
       </div>
-      {listDrop &&
-      <div>{tasks.length > 0 ? tasks.map((task) => {
-          return (
-            <Task
-              task={task}
-              setSelectedTask={setSelectedTask}
-              key={task._id}
-            />
-          );
-        }): <p className="p-1 px-3 ml-5">No tasks in list</p>}</div>
-        }
+      {listDrop && (
+        <div>
+          {tasks.length > 0 ? (
+            tasks.map((task) => {
+              return (
+                <Task
+                  task={task}
+                  setSelectedTask={setSelectedTask}
+                  key={task._id}
+                />
+              );
+            })
+          ) : (
+            <p className="p-1 px-3 ml-5">No tasks in list</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -110,19 +116,23 @@ function Workspace({ workSpace, lists, tasks, setSelectedTask }) {
       </div>
       {workspaceDrop && (
         <div>
-          {lists.length > 0 ? lists?.map((list) => {
-            const listTasks = tasks.filter((task) => {
-              return task.list === list._id;
-            });
-            return (
-              <List
-                key={list._id}
-                list={list}
-                tasks={listTasks}
-                setSelectedTask={setSelectedTask}
-              />
-            );
-          }) : <p className="p-1 px-3 ml-5">No lists in workspace</p>}
+          {lists.length > 0 ? (
+            lists?.map((list) => {
+              const listTasks = tasks.filter((task) => {
+                return task.list === list._id;
+              });
+              return (
+                <List
+                  key={list._id}
+                  list={list}
+                  tasks={listTasks}
+                  setSelectedTask={setSelectedTask}
+                />
+              );
+            })
+          ) : (
+            <p className="p-1 px-3 ml-5">No lists in workspace</p>
+          )}
         </div>
       )}
     </div>
@@ -173,7 +183,7 @@ export default function WorkSpaceList() {
           <div className="w-full border flex items-center p-5 ">
             <Link
               to={`/workspaces/${workSpaceID}/list`}
-              className="px-5 text-md font-medium hover:text-indigo-600 link-underline link-underline-black"
+              className="px-5 text-md textUnderline text-indigo-600"
             >
               List View
             </Link>
@@ -185,7 +195,10 @@ export default function WorkSpaceList() {
             </Link>
           </div>
           <div className="p-5 h-screen ">
-            <h1 className="text-2xl font-bold">Workspace: ListView</h1>
+            <h1 className="text-2xl font-bold">
+              <span>{workSpace.name}</span>
+              <span>: ListView</span>
+            </h1>
             <div className=" sm:flex sm:justify-evenly sm:h-screen mt-5 max-w-7xl mx-auto">
               <div className=" w-full max-w-lg">
                 <Workspace

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ChevronLeftIcon from "@heroicons/react/24/outline/ChevronLeftIcon";
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
@@ -18,6 +18,7 @@ const navRoutes = [
 function SideNavigation({ workSpaces }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { workSpaceID } = useParams();
   const [open, setOpen] = useState(true);
   const [workspaceDrop, setWorkspaceDrop] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
@@ -98,7 +99,27 @@ function SideNavigation({ workSpaces }) {
           workspaceDrop &&
           (workSpaces && workSpaces.length > 0 ? (
             workSpaces.map((space) => {
-              return (
+              if(workSpaceID && space._id === workSpaceID){
+                return (
+                  <div
+                    key={space._id}
+                    className="flex items-center justify-start w-full rounded-md px-2 cursor-pointer bg-indigo-600 text-white"
+                    onClick={() => navigate(`/workspaces/${space._id}`)}
+                  >
+                    <div
+                      className="h-2 w-2  rounded-full mx-2"
+                      style={{ backgroundColor: space.color }}
+                    ></div>
+                    <h2 className="text-sm font-medium">
+                      {space.name.length > 16
+                        ? space.name.substring(0, 15) + "..."
+                        : space.name}
+                    </h2>
+                  </div>
+                );
+
+              } else{
+                return (
                 <div
                   key={space._id}
                   className="flex items-center justify-start w-full rounded-md px-2 cursor-pointer hover:bg-indigo-600 hover:text-white"
@@ -108,9 +129,15 @@ function SideNavigation({ workSpaces }) {
                     className="h-2 w-2  rounded-full mx-2"
                     style={{ backgroundColor: space.color }}
                   ></div>
-                  <h2 className="text-sm font-medium">{space.name}</h2>
+                  <h2 className="text-sm font-medium">
+                    {space.name.length > 16
+                      ? space.name.substring(0, 15) + "..."
+                      : space.name}
+                  </h2>
                 </div>
               );
+              }
+              
             })
           ) : (
             <h2 className="text-sm font-medium">No workspaces to show</h2>

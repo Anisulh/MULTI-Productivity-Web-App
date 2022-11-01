@@ -16,7 +16,7 @@ function classNames(...classes) {
 function TaskCard({ task }) {
   const dispatch = useDispatch();
   const { taskName, description, dueDate, tags } = task;
-  const newDate = dueDate.substring(0, 10).replace(/-/g, "/");
+  const newDate = dueDate?.substring(0, 10).replace(/-/g, "/");
   const parsedDate = parse(newDate, "yyyy/MM/dd", new Date());
   const [isReadMore, setIsReadMore] = useState(description.length > 150);
   const [formOpen, setFormOpen] = useState(false);
@@ -113,7 +113,7 @@ function TaskCard({ task }) {
         {tags?.map((tag) => {
           return (
             <button
-              className="border-1 rounded-md bg-rose-200 px-2 p-1 text-xs  mx-2"
+              className="border-1 rounded-md bg-indigo-200 px-2 p-1 text-xs  mx-2"
               key={tag}
             >
               {tag}
@@ -123,10 +123,14 @@ function TaskCard({ task }) {
       </div>
       <div className="border mt-2"></div>
       <div className="flex items-center justify-between py-3">
-        <p className="text-sm">Due Date:</p>
-        <p className="text-sm">
-          {parsedDate.toString().split(" ").slice(1, 4).join(" ")}
-        </p>
+        {dueDate && (
+          <>
+            <p className="text-sm">Due Date:</p>
+            <p className="text-sm">
+              {parsedDate.toString().split(" ").slice(1, 4).join(" ")}
+            </p>
+          </>
+        )}
       </div>
       <div
         className={`absolute z-50 top-0 left-0 flex items-center h-screen w-screen justify-center backdrop-brightness-50 ${

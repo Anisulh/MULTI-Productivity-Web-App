@@ -26,7 +26,7 @@ function Dashboard() {
   const upcomingTasks = tasks?.filter((task) => {
     return isAfter(
       parse(
-        task.dueDate.substring(0, 10).replace(/-/g, "/"),
+        task?.dueDate?.substring(0, 10).replace(/-/g, "/"),
         "yyyy/MM/dd",
         new Date()
       ),

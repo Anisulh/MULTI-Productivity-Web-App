@@ -98,11 +98,12 @@ function HeroNav({ homeRef, aboutRef, featuresRef }) {
           </Popover>
           <main
             ref={homeRef}
-            className="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28"
+            className="mx-auto -mt-10 max-w-7xl px-4  sm:px-6  lg:px-8  flex items-center  h-screen justify-center lg:justify-start"
           >
+          
             <div className="sm:text-center lg:text-left">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                <span className="block xl:inline">Organization has</span>{" "}
+                <span className="block xl:inline ">Organization has</span>{" "}
                 <span className="block text-indigo-600 xl:inline">
                   never been so easy
                 </span>

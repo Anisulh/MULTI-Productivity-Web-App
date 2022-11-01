@@ -102,7 +102,7 @@ function TaskModal({ task, lists, setSelectedTask }) {
           return (
             <button
               key={tag}
-              className="border-1 rounded-md bg-rose-200 px-2 p-1 text-xs  mx-2"
+              className="border-1 rounded-md bg-indigo-200 px-2 p-1 text-xs  mx-2"
             >
               {tag}
             </button>

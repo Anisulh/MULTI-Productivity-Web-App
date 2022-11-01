@@ -43,8 +43,8 @@ function ListColumn({ list, tasks }) {
     { name: "Delete", icon: TrashIcon, function: onDelete },
   ];
   return (
-    <div className="mx-2 h-full ">
-      <div className="h-full mt-2 px-4 sm:px-6  lg:px-8  py-4  w-96 ">
+    <div className="mx-2">
+      <div className="h-full mt-2 px-4 sm:px-6  lg:px-8  pt-4  w-96  ">
         <Menu as="div" className="relative ">
           <div className="flex w-full justify-between">
             <div className="flex justify-start items-center">
