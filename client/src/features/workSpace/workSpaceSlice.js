@@ -137,7 +137,8 @@ const workSpaceSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.workSpaces = state.workSpaces.map((workSpace) => {
-          const updatedWorkspaceID = action.payload.id
+
+          const updatedWorkspaceID = action.payload._id
           if (workSpace._id === updatedWorkspaceID) {
             workSpace = action.payload
           }

@@ -23,8 +23,9 @@ const getWorkSpace = async (workSpaceID, token) => {
 // create a workspace and add it to the server to the associated user
 // /api/workspaces/
 const createWorkSpace = async (workSpace, token) => {
-  const name = { name: workSpace };
-  const response = await axios.post(API_URI, name, {
+  const { name, color } = workSpace
+  const data = { name, color }
+  const response = await axios.post(API_URI, data, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
@@ -36,7 +37,6 @@ const updateWorkSpace = async (workSpaceID, workSpaceData, token) => {
   const response = await axios.put(API_URI + workSpaceID, workSpaceData, {
     headers: { Authorization: `Bearer ${token}` }
   });
-  console.log(response)
   return response.data;
 };
 

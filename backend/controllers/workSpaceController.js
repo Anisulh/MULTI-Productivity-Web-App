@@ -32,7 +32,13 @@ const createWorkSpace = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please add a workspace name");
   }
-  const color = stringToColour(req.body.name);
+  let color;
+  if (!req.body.color) {
+    color = stringToColour(req.body.name);
+  } else {
+    color = req.body.color
+  }
+
   const newWorkSpace = await WorkSpace.create({
     user: req.user.id,
     color: color,
@@ -63,7 +69,6 @@ const updateWorkSpace = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
-  delete req.body._id
   const updatedWorkSpace = await WorkSpace.findOneAndUpdate(
     { _id: req.params.workspaceid },
     req.body,
@@ -77,15 +82,6 @@ const updateWorkSpace = asyncHandler(async (req, res) => {
 // Authorization needed: has access to req.user
 const deleteWorkSpace = asyncHandler(async (req, res) => {
   const workSpace = await WorkSpace.findById(req.params.workspaceid);
-  const lists = await List.find({
-    user: req.user.id,
-    workSpace: req.params.workspaceid,
-  });
-  const tasks = await Task.find({
-    user: req.user.id,
-    workSpace: req.params.workspaceid,
-  });
-
   if (!req.user) {
     res.status(401);
     throw new Error("User not found");
@@ -99,8 +95,14 @@ const deleteWorkSpace = asyncHandler(async (req, res) => {
     throw new Error("User not authorized");
   }
   await workSpace.delete();
-  await lists.delete();
-  await tasks.delete();
+  await List.deleteMany({
+    user: req.user.id,
+    workSpace: req.params.workspaceid,
+  });
+  await Task.deleteMany({
+    user: req.user.id,
+    workSpace: req.params.workspaceid,
+  });
   res.status(200).json({ id: req.params.workspaceid });
 });
 

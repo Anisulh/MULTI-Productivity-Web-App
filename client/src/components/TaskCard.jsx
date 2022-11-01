@@ -1,113 +1,123 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import React from "react";
-import Tooltip from "@mui/material/Tooltip";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import CardHeader from "@mui/material/CardHeader";
-import MoreMenu from "./MoreMenu";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import { useState } from "react";
-import dayjs from "dayjs";
-import { dueDate } from "../services/dueDate";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import { useSelector } from "react-redux";
-import UpdateTaskForm from "./UpdateTaskForm";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
+import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import parseISO from "date-fns/parseISO";
+import { Fragment, useState } from "react";
+import TaskForm from "./forms/TaskForm";
+import { Menu, Transition } from "@headlessui/react";
+import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTask } from "../features/task/taskSlice";
+import { parse } from "date-fns";
 
-function TaskCard({ taskItem }) {
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+function TaskCard({ task }) {
+  const dispatch = useDispatch();
+  const { taskName, description, dueDate, tags } = task;
+
   const [isReadMore, setIsReadMore] = useState(false);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
   const { lists } = useSelector((state) => state.list);
-  const handleFormOpen = () => {
-    setShowUpdateForm(true);
+  const handleClose = () => {
+    setFormOpen(false);
   };
-  const title = (
-    <Typography variant="h6" component="div" textAlign={"left"}>
-      {taskItem.taskName}
-    </Typography>
-  );
+  const handleOpen = () => {
+    setFormOpen(true);
+  };
+  const onDelete = () => {
+    const taskData = {
+      workSpaceID: task.workSpace,
+      listID: task.list,
+      taskID: task._id,
+    };
+    dispatch(deleteTask(taskData));
+  };
 
+  const options = [
+    { name: "Edit", icon: PencilSquareIcon, function: handleOpen },
+    { name: "Delete", icon: TrashIcon, function: onDelete },
+  ];
   return (
-    <>
-      <Card
-        sx={{
-          marginBottom: "25px",
-          borderRadius: "10px",
-          maxWidth: "500px",
-        }}
+    <div className="border rounded-xl pt-5 px-5 mb-5 z-0">
+      <Menu as="div" className="relative ">
+        <div className="text-lg font-medium flex w-full justify-between">
+          <h3>{taskName}</h3>
+          <Menu.Button className=" rounded-md  border-gray-300 bg-white  text-lg font-medium text-gray-700 shadow-sm  ">
+            <ChevronDownIcon
+              className="-mr-1 ml-2 h-5 w-5 rounded-full hover:bg-gray-200"
+              aria-hidden="true"
+            />
+          </Menu.Button>
+        </div>
+
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="py-1">
+              {options?.map((item) => {
+                return (
+                  <Menu.Item key={item.name}>
+                    {({ active }) => (
+                      <button
+                        onClick={item.function}
+                        className={classNames(
+                          active
+                            ? "bg-gray-100 text-gray-900"
+                            : "text-gray-700",
+                          "px-4 py-2 text-sm flex items-center w-full"
+                        )}
+                      >
+                        <item.icon className="h-4 mr-2" />
+                        {item.name}
+                      </button>
+                    )}
+                  </Menu.Item>
+                );
+              })}
+            </div>
+          </Menu.Items>
+        </Transition>
+      </Menu>
+      <p className="text-sm">{description}</p>
+      <div className="px-2 mt-5">
+        {tags?.map((tag) => {
+          return (
+            <button
+              className="border-1 rounded-md bg-rose-200 px-2 p-1 text-xs  mx-2"
+              key={tag}
+            >
+              {tag}
+            </button>
+          );
+        })}
+      </div>
+      <div className="border mt-2"></div>
+      <div className="flex items-center justify-between py-3">
+        <p className="text-sm">Due Date:</p>
+        <p className="text-sm">{dueDate.substring(0, 10)}</p>
+      </div>
+      <div
+        className={`absolute z-50 top-0 left-0 flex items-center h-screen w-screen justify-center backdrop-brightness-50 ${
+          formOpen ? "block" : "hidden"
+        }`}
       >
-        <CardHeader
-          sx={{ marginBottom: "-25px" }}
-          action={
-            <IconButton aria-label="settings">
-              <MoreMenu item={taskItem} itemFormOpen={handleFormOpen} />
-            </IconButton>
-          }
-          title={title}
-        ></CardHeader>
-        <CardContent>
-          <Typography variant="body2" textAlign={"left"}>
-            {!isReadMore && taskItem.description.length > 150
-              ? taskItem.description.slice(0, 150) + "... "
-              : taskItem.description}
-          </Typography>
-          <br />
-          <Stack direction="row" spacing={1}>
-            {taskItem.tags
-              ? taskItem.tags.map((tag, index) => (
-                  <Chip
-                    key={index}
-                    label={tag}
-                    variant="outlined"
-                    size="small"
-                  />
-                ))
-              : null}
-          </Stack>
-        </CardContent>
-        <Divider />
-        <CardActions disableSpacing>
-          {taskItem.description.length > 150 && (
-            <Button size="small" onClick={() => setIsReadMore(!isReadMore)}>
-              {isReadMore ? "Show Less" : "Read More"}
-            </Button>
-          )}
-          {taskItem.dueDate ? (
-            <IconButton size="small" sx={{ marginLeft: "auto" }}>
-              <CalendarMonthOutlinedIcon
-                sx={{ height: "20px", marginTop: "-5px" }}
-              />
-              <Tooltip
-                title={`Due ${dayjs(taskItem.dueDate).format(`MM/DD/YYYY`)}`}
-              >
-                <Typography variant="overline" display="block" gutterBottom>
-                  {dueDate(taskItem.dueDate)}
-                </Typography>
-              </Tooltip>
-            </IconButton>
-          ) : null}
-        </CardActions>
-      </Card>
-      <Dialog open={showUpdateForm}>
-        <DialogTitle>Edit Task</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Fill out this form to edit task</DialogContentText>
-          <UpdateTaskForm
-            lists={lists}
-            taskItem={taskItem}
-            setShowUpdateForm={setShowUpdateForm}
-          />
-        </DialogContent>
-      </Dialog>
-    </>
+        <TaskForm
+          task={task}
+          lists={lists}
+          handleClose={handleClose}
+          update={true}
+        />
+      </div>
+    </div>
   );
 }
 

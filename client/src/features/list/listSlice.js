@@ -56,8 +56,8 @@ export const createList = createAsyncThunk(
   async (listData, thunkAPI) => {
     try {
       let token = thunkAPI.getState().auth.user.token;
-      const { workSpaceID, name } = listData;
-      return await listService.createList(workSpaceID, name, token);
+      const { workSpaceID, formData } = listData;
+      return await listService.createList(workSpaceID, formData, token);
     } catch (error) {
       const message = errorHandler(error);
       return thunkAPI.rejectWithValue(message);
@@ -71,7 +71,6 @@ export const updateList = createAsyncThunk(
     try {
       let token = thunkAPI.getState().auth.user.token;
       const { workSpaceID, listID, listInfo } = listData;
-      console.log(workSpaceID, listID, listInfo)
       return await listService.updateList(workSpaceID, listID, listInfo, token);
     } catch (error) {
       const message = errorHandler(error);
@@ -164,7 +163,7 @@ const listSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.lists = state.lists.map((list) => {
-          const updatedListID = action.payload.id
+          const updatedListID = action.payload._id
           if (list._id === updatedListID) {
             list = action.payload
           }

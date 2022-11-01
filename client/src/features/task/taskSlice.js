@@ -72,7 +72,6 @@ export const updateTask = createAsyncThunk(
       const { taskID, taskInfo } = taskData;
       const workSpace = taskInfo.workSpace
       const list = taskInfo.list
-      console.log(taskData)
       return await taskService.updateTask(
         workSpace,
         list,
@@ -170,7 +169,7 @@ const taskSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.tasks = state.tasks.map((task) => {
-          const updatedTaskID = action.payload.id;
+          const updatedTaskID = action.payload._id;
           if (task._id === updatedTaskID) {
             task = action.payload;
           }
