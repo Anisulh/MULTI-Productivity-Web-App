@@ -145,7 +145,7 @@ function Login() {
         </form>
         <div className="flex justify-center mt-10">
           <p className="pr-1">Don't have an account? </p>{" "}
-          <Link to="/register" className="hover:text-indigo-600">
+          <Link to="/register" className="text-indigo-600 link-underline link-underline-black">
             {" "}
             Register
           </Link>

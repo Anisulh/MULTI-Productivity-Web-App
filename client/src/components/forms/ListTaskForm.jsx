@@ -3,17 +3,14 @@ import { createTask } from "../../features/task/taskSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-function ListTaskForm({
-  lists,
-  handleClose,
-}) {
+function ListTaskForm({ lists, handleClose }) {
   const dispatch = useDispatch();
-  const {workSpaceID} = useParams();
+  const { workSpaceID } = useParams();
   const [formData, setFormData] = useState({
     taskName: "",
     description: "",
     tagString: "",
-    dueDate:  "",
+    dueDate: "",
   });
   const [listID, setListID] = useState(lists[0]?._id);
   const { taskName, description, tagString, dueDate } = formData;
@@ -86,7 +83,6 @@ function ListTaskForm({
           placeholder="Description"
           value={description}
           onChange={onFormChange}
-          required
         />
         <input
           type="text"
@@ -95,7 +91,6 @@ function ListTaskForm({
           placeholder="Tags"
           value={tagString}
           onChange={onFormChange}
-          required
         />
         <input
           type="date"
@@ -112,7 +107,6 @@ function ListTaskForm({
               dueDate: formattedDate,
             }));
           }}
-          required
         />
 
         <button

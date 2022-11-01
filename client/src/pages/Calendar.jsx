@@ -248,7 +248,7 @@ export default function Calendar() {
                           <TaskCard task={task} key={task.id} />
                         ))
                       ) : (
-                        <p>No tasks for today.</p>
+                        <p>No tasks for this day.</p>
                       )}
                     </ol>
                   </section>

@@ -42,7 +42,7 @@ function SideNavigation({ workSpaces }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <div className="flex items-center">
+      <div className="flex items-center" onClick={() => navigate("/dashboard")}>
         <img
           src="/logo.svg"
           alt="logo"

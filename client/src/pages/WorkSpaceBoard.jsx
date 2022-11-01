@@ -57,13 +57,13 @@ function WorkSpaceBoard() {
           <div className="w-full border flex items-center p-5 ">
             <Link
               to={`/workspaces/${workSpaceID}/list`}
-              className="px-5 text-md font-medium hover:text-indigo-600"
+              className="px-5 text-md font-medium hover:text-indigo-600 link-underline link-underline-black"
             >
               List View
             </Link>
             <Link
               to={`/workspaces/${workSpaceID}`}
-              className="px-5 text-md font-medium hover:text-indigo-600"
+              className="px-5 text-md font-medium hover:text-indigo-600 link-underline link-underline-black"
             >
               Board View
             </Link>
@@ -71,9 +71,9 @@ function WorkSpaceBoard() {
           <div className="p-7 h-screen">
             <h1 className="text-2xl font-bold">Workspace: BoardView</h1>
             <div className=" sm:flex height-85 overflow-y-hidden z-50">
-              {lists?.map((list) => {
+              { lists.length > 0 ? lists?.map((list) => {
                 return <ListColumn key={list._id} list={list} tasks={tasks} />;
-              })}
+              }) : <p>No lists to show</p>}
             </div>
           </div>
         </div>

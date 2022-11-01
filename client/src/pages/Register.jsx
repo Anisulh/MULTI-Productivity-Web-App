@@ -203,7 +203,7 @@ function Register() {
           </form>
           <div className="flex justify-center mt-10">
             <p className="pr-1">Already have an account? </p>{" "}
-            <Link to="/login" className="hover:text-indigo-600">
+            <Link to="/login" className="text-indigo-600 link-underline link-underline-black">
               {" "}
               Login Here
             </Link>

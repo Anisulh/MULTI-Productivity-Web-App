@@ -47,7 +47,7 @@ function HeroNav({ homeRef, aboutRef, featuresRef }) {
                     <button
                       key={item.name}
                       onClick={() => item.ref.current.scrollIntoView()}
-                      className="font-medium cursor-pointer  hover:text-indigo-600"
+                      className="font-medium cursor-pointer  hover:text-indigo-600 link-underline link-underline-black"
                     >
                       {item.name}
                     </button>

@@ -49,7 +49,7 @@ function List({ list, tasks, setSelectedTask }) {
         )}
       </div>
       {listDrop &&
-        tasks.map((task) => {
+      <div>{tasks.length > 0 ? tasks.map((task) => {
           return (
             <Task
               task={task}
@@ -57,7 +57,8 @@ function List({ list, tasks, setSelectedTask }) {
               key={task._id}
             />
           );
-        })}
+        }): <p className="p-1 px-3 ml-5">No tasks in list</p>}</div>
+        }
     </div>
   );
 }
@@ -84,7 +85,7 @@ function Workspace({ workSpace, lists, tasks, setSelectedTask }) {
                    border-b font-medium"
       >
         <h2
-          className="flex-1 cursor-pointer "
+          className="flex-1 cursor-pointer text-lg"
           onClick={() => {
             setWorkspaceDrop(!workspaceDrop);
           }}
@@ -109,7 +110,7 @@ function Workspace({ workSpace, lists, tasks, setSelectedTask }) {
       </div>
       {workspaceDrop && (
         <div>
-          {lists?.map((list) => {
+          {lists.length > 0 ? lists?.map((list) => {
             const listTasks = tasks.filter((task) => {
               return task.list === list._id;
             });
@@ -121,7 +122,7 @@ function Workspace({ workSpace, lists, tasks, setSelectedTask }) {
                 setSelectedTask={setSelectedTask}
               />
             );
-          })}
+          }) : <p className="p-1 px-3 ml-5">No lists in workspace</p>}
         </div>
       )}
     </div>
@@ -172,13 +173,13 @@ export default function WorkSpaceList() {
           <div className="w-full border flex items-center p-5 ">
             <Link
               to={`/workspaces/${workSpaceID}/list`}
-              className="px-5 text-md font-medium hover:text-indigo-600"
+              className="px-5 text-md font-medium hover:text-indigo-600 link-underline link-underline-black"
             >
               List View
             </Link>
             <Link
               to={`/workspaces/${workSpaceID}`}
-              className="px-5 text-md font-medium hover:text-indigo-600"
+              className="px-5 text-md font-medium hover:text-indigo-600 link-underline link-underline-black"
             >
               Board View
             </Link>

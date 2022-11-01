@@ -69,19 +69,23 @@ function Dashboard() {
           <div className="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-14 lg:mt-16 lg:px-8 xl:mt-20">
             <h2 className="text-2xl font-semibold">Workspaces</h2>
             <div className="pb-5 sm:h-36 sm:overflow-auto">
-              {workSpaces?.map((workSpace) => {
-                return (
-                  <WorkSpaceCard workSpace={workSpace} key={workSpace._id} />
-                );
-              })}
+              { workSpaces.length > 0 ? (
+                workSpaces.map((workSpace) => {
+                  return (
+                    <WorkSpaceCard workSpace={workSpace} key={workSpace._id} />
+                  );
+                })
+              ) : ( 
+                <p>No workspaces to show</p>
+              )}
             </div>
           </div>
           <div className="mx-auto mt-8 max-w-7xl px-4 sm:mt-10 sm:px-6 md:mt-12  lg:px-8 ">
             <h2 className="text-2xl font-semibold">Upcoming Tasks</h2>
             <div className="pb-5 sm:h-96 sm:overflow-auto">
-              {upcomingTasks?.map((task) => {
+              {upcomingTasks.length > 0 ? upcomingTasks.map((task) => {
                 return <TaskCard task={task} key={task._id} />;
-              })}
+              }) : <p>No upcoming tasks</p>}
             </div>
           </div>
           <Tooltip message={"Create workspace"}>

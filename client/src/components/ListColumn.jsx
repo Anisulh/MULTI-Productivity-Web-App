@@ -109,9 +109,13 @@ function ListColumn({ list, tasks }) {
           </button>
         </div>
         <div className="overflow-auto h-3/4">
-          {listTasks.map((task) => {
-            return <TaskCard task={task} key={task._id} />;
-          })}
+          {listTasks.length > 0 ? (
+            listTasks.map((task) => {
+              return <TaskCard task={task} key={task._id} />;
+            })
+          ) : (
+            <p>No tasks to show</p>
+          )}
         </div>
       </div>
       <div

@@ -108,7 +108,6 @@ function TaskForm({
           placeholder="Description"
           value={description}
           onChange={onFormChange}
-          required
         />
         <input
           type="text"
@@ -117,7 +116,6 @@ function TaskForm({
           placeholder="Tags"
           value={task !== {} ? task?.tags?.join(" ") : tagString}
           onChange={onFormChange}
-          required
         />
         <input
           type="date"
@@ -126,7 +124,6 @@ function TaskForm({
           placeholder="Due Date"
           value={task !== {} ? dueDate?.substring(0, 10) : dueDate}
           onChange={onFormChange}
-          required
         />
 
         <button

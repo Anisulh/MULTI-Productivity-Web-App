@@ -35,42 +35,24 @@ code {
     monospace;
 }
 
-.spinner-container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 5000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.spinner {
-  width: 64px;
-  height: 64px;
-  border: 8px solid;
-  border-color: #000 transparent #555 transparent;
-  border-radius: 50%;
-  animation: spin 1.2s linear infinite;
-}
-
-.link-title {
-  text-decoration: none;
-  color: white;
-}
-.link-pages {
-  text-decoration: none;
-  color: black;
-}
-form {
-  margin-top: 30px;
-}
-.dayWithDotContainer {
-  position: "relative";
-}
 .height-85 {
   height: 85vh;
 }
+
+.link-underline {
+		border-bottom-width: 0;
+		background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+		background-size: 0 3px;
+		background-position: 0 100%;
+		background-repeat: no-repeat;
+		transition: background-size .3s ease-in-out;
+	}
+
+	.link-underline-black {
+		background-image: linear-gradient(transparent, transparent), linear-gradient(#4f46e5, #4f46e5)
+	}
+
+	.link-underline:hover {
+		background-size: 100% 3px;
+		background-position: 0 100%
+	}

@@ -98,7 +98,6 @@ function CalendarTaskForm({ lists, handleClose, date, workSpaces }) {
           placeholder="Description"
           value={description}
           onChange={onFormChange}
-          required
         />
         <input
           type="text"
@@ -107,7 +106,6 @@ function CalendarTaskForm({ lists, handleClose, date, workSpaces }) {
           placeholder="Tags"
           value={tagString}
           onChange={onFormChange}
-          required
         />
         <input
           type="date"
@@ -124,7 +122,6 @@ function CalendarTaskForm({ lists, handleClose, date, workSpaces }) {
               dueDate: formattedDate,
             }));
           }}
-          required
         />
 
         <button
