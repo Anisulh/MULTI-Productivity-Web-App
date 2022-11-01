@@ -9,6 +9,7 @@ import Calendar from "./pages/Calendar";
 import LandingPage from "./pages/LandingPage";
 import WorkSpaceBoard from "./pages/WorkSpaceBoard";
 import WorkSpaceList from "./pages/WorkSpaceList";
+import ErrorPage from "./pages/ErrorPage";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
               element={<WorkSpaceList />}
             />
             <Route path="/calendar" element={<Calendar />} />
+            <Route path='*' element={<ErrorPage />} />
 
           </Routes>
         </div>
