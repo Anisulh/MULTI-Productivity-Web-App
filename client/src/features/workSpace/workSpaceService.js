@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const API_URI = "http://localhost:9090/api/workspaces/";
+const API_URI = "/api/workspaces/";
 
 // get workspaces from the server thats associated with user
 // /api/workspaces/

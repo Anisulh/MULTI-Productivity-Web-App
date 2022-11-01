@@ -1,11 +1,11 @@
 const axios = require("axios");
 
-const API_URI = "http://localhost:9090/api/workspaces/";
+const API_URI = "/api/workspaces/";
 
 //get all tasks associated with user
 // /api/tasks/
 const getAllTasks = async (token) => {
-  const response = await axios.get("http://localhost:9090/api/tasks/", {
+  const response = await axios.get("/api/tasks/", {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;

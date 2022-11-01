@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const API_URI = "http://localhost:9090/api/users/";
+const API_URI = "/api/users/";
 
 // register user and enter response into local storage
 // /api/users/register

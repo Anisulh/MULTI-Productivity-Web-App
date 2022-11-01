@@ -1,11 +1,11 @@
 const axios = require("axios");
 
-const API_URI = "http://localhost:9090/api/workspaces/";
+const API_URI = "/api/workspaces/";
 
 // get lists from the server thats associated with user
 // /api/workspaces/:workspaceid/lists
 const getAllLists = async (token) => {
-  const response = await axios.get("http://localhost:9090/api/lists/", {
+  const response = await axios.get("/api/lists/", {
     headers: { Authorization: `Bearer ${token}` },
   });
 
