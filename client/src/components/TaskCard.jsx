@@ -1,6 +1,5 @@
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
-import parseISO from "date-fns/parseISO";
 import { Fragment, useState } from "react";
 import TaskForm from "./forms/TaskForm";
 import { Menu, Transition } from "@headlessui/react";
