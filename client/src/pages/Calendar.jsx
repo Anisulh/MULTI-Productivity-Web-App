@@ -114,8 +114,8 @@ export default function Calendar() {
         <SideNavigation workSpaces={workSpaces} />
         <div className="h-screen flex-1">
           <div className="p-7 h-screen">
-            <h1 className="text-2xl font-bold mt-10">Calendar</h1>
-            <div className="pt-16">
+            <h1 className="text-3xl font-bold">Calendar</h1>
+            <div className="pt-16 mt-10">
               <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-7xl md:px-6">
                 <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
                   <div className="md:pr-14">
@@ -165,7 +165,7 @@ export default function Calendar() {
                       <div>S</div>
                     </div>
                     <div className="grid grid-cols-7 mt-2 text-sm">
-                      {days.map((day, dayIdx) => (
+                      {days?.map((day, dayIdx) => (
                         <div
                           key={day.toString()}
                           className={classNames(
@@ -207,11 +207,11 @@ export default function Calendar() {
                           </button>
 
                           <div className="w-1 h-1 mx-auto mt-1">
-                            {tasks.some((task) =>
+                            {tasks?.some((task) =>
                               isSameDay(
                                 parse(
                                   task.dueDate
-                                    .substring(0, 10)
+                                    ?.substring(0, 10)
                                     .replace(/-/g, "/"),
                                   "yyyy/MM/dd",
                                   new Date()
@@ -243,8 +243,8 @@ export default function Calendar() {
                     </div>
 
                     <ol className="mt-4 space-y-1 text-sm leading-6">
-                      {selectedDayTasks.length > 0 ? (
-                        selectedDayTasks.map((task) => (
+                      {selectedDayTasks?.length > 0 ? (
+                        selectedDayTasks?.map((task) => (
                           <TaskCard task={task} key={task.id} />
                         ))
                       ) : (

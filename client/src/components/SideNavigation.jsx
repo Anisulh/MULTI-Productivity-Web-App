@@ -39,7 +39,7 @@ function SideNavigation({ workSpaces }) {
     <div
       className={` ${
         open ? "w-56" : "w-20 "
-      } border h-screen p-5 pt-8 relative  hidden sm:block duration-300 font-medium`}
+      } border h-screen p-5 pt-8 relative  hidden sm:block duration-300 `}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
@@ -56,7 +56,7 @@ function SideNavigation({ workSpaces }) {
         {navRoutes.map((route) => (
           <li
             key={route.name}
-            className="flex rounded-md p-2 cursor-pointer hover:bg-white   text-sm items-center gap-x-4 "
+            className="flex rounded-md p-2 cursor-pointer hover:bg-white font-medium text-sm items-center gap-x-4 "
             onClick={() => navigate(route.link)}
           >
             <route.icon className="h-5 w-5 text-gray-500" />
@@ -76,18 +76,18 @@ function SideNavigation({ workSpaces }) {
           className=" mr-2 rounded-md border hover:bg-indigo-600"
           onClick={handleFormOpen}
         >
-          <PlusIcon className="h-4 w-4 hover:text-white" />
+          <PlusIcon className="h-4 w-4 font-medium hover:text-white" />
         </button>
         {workspaceDrop ? (
           <ChevronDownIcon
-            className="h-4 cursor-pointer text-gray-500 hover:bg-indigo-600 hover:text-white rounded-md"
+            className="h-4 cursor-pointer text-gray-500 hover:bg-indigo-600 hover:text-white rounded-md font-medium"
             onClick={() => {
               setWorkspaceDrop(!workspaceDrop);
             }}
           />
         ) : (
           <ChevronLeftIcon
-            className="h-4 cursor-pointer text-gray-500 hover:bg-indigo-600 hover:text-white rounded-md"
+            className="h-4 cursor-pointer text-gray-500 hover:bg-indigo-600 hover:text-white rounded-md font-medium"
             onClick={() => {
               setWorkspaceDrop(!workspaceDrop);
             }}
@@ -110,7 +110,7 @@ function SideNavigation({ workSpaces }) {
                       className="h-2 w-2  rounded-full mx-2"
                       style={{ backgroundColor: space.color }}
                     ></div>
-                    <h2 className="text-sm">
+                    <h2 className="text-sm" >
                       {space.name.length > 16
                         ? space.name.substring(0, 15) + "..."
                         : space.name}
@@ -129,7 +129,7 @@ function SideNavigation({ workSpaces }) {
                     className="h-2 w-2  rounded-full mx-2"
                     style={{ backgroundColor: space.color }}
                   ></div>
-                  <h2 className="text-sm font-medium">
+                  <h2 className="text-sm ">
                     {space.name.length > 16
                       ? space.name.substring(0, 15) + "..."
                       : space.name}
@@ -140,7 +140,7 @@ function SideNavigation({ workSpaces }) {
               
             })
           ) : (
-            <h2 className="text-sm font-medium">No workspaces to show</h2>
+            <h2 className="text-sm ">No workspaces to show</h2>
           ))}
       </div>
 
