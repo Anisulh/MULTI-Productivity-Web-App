@@ -38,14 +38,14 @@ export default function Features({ featuresRef }) {
             return (
               <div
                 key={index}
-                className="md:flex md:item-center md:justify-between mb-20"
+                className="md:flex md:item-center md:justify-between mb-28"
               >
                 <div className=" rounded-lg shadow-md mr-5">
                   <img
                     src={aspect.image}
                     alt={aspect.alt}
-                    width="500"
-                    height="600"
+                    width="1200"
+                    height="800"
                   />
                 </div>
                 <div>
@@ -60,7 +60,7 @@ export default function Features({ featuresRef }) {
             return (
               <div
                 key={index}
-                className="md:flex md:item-center md:justify-between mb-20"
+                className="md:flex md:item-center md:justify-between mb-28"
               >
                 <div>
                   <h3 className="text-xl font-bold">{aspect.heading}</h3>
@@ -72,8 +72,8 @@ export default function Features({ featuresRef }) {
                   <img
                     src={aspect.image}
                     alt={aspect.alt}
-                    width="600"
-                    height="600"
+                    width="1200"
+                    height="800"
                   />
                 </div>
               </div>
