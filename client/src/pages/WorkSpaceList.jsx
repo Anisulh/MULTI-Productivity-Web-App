@@ -88,7 +88,7 @@ function Workspace({ workSpace, lists, tasks, setSelectedTask }) {
     <div className="w-full mb-5 ">
       <div
         className="flex items-center justify-between w-full p-1 px-3
-                   border-b font-medium"
+                   border-b"
       >
         <h2
           className="flex-1 cursor-pointer text-lg"

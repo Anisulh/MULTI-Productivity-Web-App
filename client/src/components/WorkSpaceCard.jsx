@@ -38,7 +38,7 @@ function WorkSpaceCard({ workSpace }) {
     <div className="flex items-center justify-between w-full border rounded-md hover:bg-indigo-600 hover:text-white">
       <Menu as="div" className="relative flex justify-start w-full">
         <div className="w-2" style={{ backgroundColor: color }}></div>
-        <div className="text-lg font-medium w-full flex justify-between px-3">
+        <div className="text-lg w-full flex justify-between px-3">
           <h3 className="flex-1 cursor-pointer" onClick={() => {
             navigate(`/workspaces/${workSpace._id}`)
           }}>{name}</h3>

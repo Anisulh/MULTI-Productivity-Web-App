@@ -98,7 +98,7 @@ function SideNavigation({ workSpaces }) {
         {open &&
           workspaceDrop &&
           (workSpaces && workSpaces.length > 0 ? (
-            workSpaces.map((space) => {
+            workSpaces?.map((space) => {
               if(workSpaceID && space._id === workSpaceID){
                 return (
                   <div
@@ -110,7 +110,7 @@ function SideNavigation({ workSpaces }) {
                       className="h-2 w-2  rounded-full mx-2"
                       style={{ backgroundColor: space.color }}
                     ></div>
-                    <h2 className="text-sm font-medium">
+                    <h2 className="text-sm">
                       {space.name.length > 16
                         ? space.name.substring(0, 15) + "..."
                         : space.name}

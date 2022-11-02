@@ -95,7 +95,7 @@ export default function Calendar() {
   const selectedDayTasks = tasks?.filter((task) =>
     isSameDay(
       parse(
-        task.dueDate.substring(0, 10).replace(/-/g, "/"),
+        task?.dueDate?.substring(0, 10).replace(/-/g, "/"),
         "yyyy/MM/dd",
         new Date()
       ),
