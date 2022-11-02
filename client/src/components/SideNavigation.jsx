@@ -99,7 +99,7 @@ function SideNavigation({ workSpaces }) {
           workspaceDrop &&
           (workSpaces && workSpaces.length > 0 ? (
             workSpaces?.map((space) => {
-              if(workSpaceID && space._id === workSpaceID){
+              if (workSpaceID && space._id === workSpaceID) {
                 return (
                   <div
                     key={space._id}
@@ -110,52 +110,51 @@ function SideNavigation({ workSpaces }) {
                       className="h-2 w-2  rounded-full mx-2"
                       style={{ backgroundColor: space.color }}
                     ></div>
-                    <h2 className="text-sm" >
+                    <h2 className="text-sm">
                       {space.name.length > 16
                         ? space.name.substring(0, 15) + "..."
                         : space.name}
                     </h2>
                   </div>
                 );
-
-              } else{
+              } else {
                 return (
-                <div
-                  key={space._id}
-                  className="flex items-center justify-start w-full rounded-md px-2 cursor-pointer hover:bg-indigo-600 hover:text-white"
-                  onClick={() => navigate(`/workspaces/${space._id}`)}
-                >
                   <div
-                    className="h-2 w-2  rounded-full mx-2"
-                    style={{ backgroundColor: space.color }}
-                  ></div>
-                  <h2 className="text-sm ">
-                    {space.name.length > 16
-                      ? space.name.substring(0, 15) + "..."
-                      : space.name}
-                  </h2>
-                </div>
-              );
+                    key={space._id}
+                    className="flex items-center justify-start w-full rounded-md px-2 cursor-pointer hover:bg-indigo-600 hover:text-white"
+                    onClick={() => navigate(`/workspaces/${space._id}`)}
+                  >
+                    <div
+                      className="h-2 w-2  rounded-full mx-2"
+                      style={{ backgroundColor: space.color }}
+                    ></div>
+                    <h2 className="text-sm ">
+                      {space.name.length > 16
+                        ? space.name.substring(0, 15) + "..."
+                        : space.name}
+                    </h2>
+                  </div>
+                );
               }
-              
             })
           ) : (
             <h2 className="text-sm ">No workspaces to show</h2>
           ))}
       </div>
 
-      <div className=" absolute bottom-5 w-44 justify-center items-center ">
-        <button
-          className={`flex rounded-md text-sm hover:bg-indigo-600 hover:text-white  items-center p-2 duration-300 ${
-            open && "justify-around w-full border"
-          }`}
-          onClick={onLogout}
-        >
-          <span className="sr-only">Logout</span>
-
-          {open && <h4 className="text-lg font-medium"> Logout</h4>}
-        </button>
-      </div>
+      {open && (
+        <div className=" absolute bottom-5 w-44 justify-center items-center ">
+          <button
+            className={`flex rounded-md text-sm hover:bg-indigo-600 hover:text-white  items-center p-2 duration-300 ${
+              open && "justify-around w-full border text-lg font-medium"
+            }`}
+            onClick={onLogout}
+          >
+            <span className="sr-only">Logout</span>
+            Logout
+          </button>
+        </div>
+      )}
       <div
         className={`absolute top-0 left-0 flex items-center h-screen w-screen justify-center backdrop-brightness-50 z-50 ${
           formOpen ? "block" : "hidden"

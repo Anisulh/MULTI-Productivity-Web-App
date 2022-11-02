@@ -115,7 +115,7 @@ export default function Calendar() {
         <div className="h-screen flex-1">
           <div className="p-7 h-screen">
             <h1 className="text-3xl font-bold">Calendar</h1>
-            <div className="pt-16 mt-10">
+            <div className="pt-16 sm:mt-10 mb-10">
               <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-7xl md:px-6">
                 <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
                   <div className="md:pr-14">

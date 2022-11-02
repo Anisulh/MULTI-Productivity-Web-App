@@ -2,7 +2,10 @@ import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
 import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../features/auth/authSlice";
+import { reset as authReset } from "../features/auth/authSlice";
 
 const navRoutes = [
   { name: "Dashboard", icon: QueueListIcon, link: "/dashboard" },
@@ -10,7 +13,14 @@ const navRoutes = [
 ];
 
 function MobileNav() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(authReset());
+    navigate("/");
+  };
   return (
     <div className="block sm:hidden -mt-3 ">
       <div className="w-full border px-3 ">
@@ -50,13 +60,13 @@ function MobileNav() {
             <div className="border mt-5"></div>
             <div className="flex justify-center items-center ">
               <button
-                className={`flex rounded-md text-sm hover:bg-indigo-600 hover:text-white hover:ring-2 hover:ring-white  items-center mx-10 py-2 mt-5 duration-300 ${
+                className={`flex rounded-md hover:bg-indigo-600 hover:text-white hover:ring-2 hover:ring-white  items-center mx-10 py-2 mt-5 duration-300 text-lg font-medium ${
                   open ? "justify-evenly w-full border" : "hidden"
                 }`}
+                onClick={onLogout}
               >
                 <span className="sr-only">Logout</span>
-
-                <h4 className="text-lg font-medium">Logout</h4>
+                Logout
               </button>
             </div>
           </div>

@@ -99,11 +99,11 @@ function Login() {
   return (
     <div className="flex items-center h-screen justify-center">
       <div className="absolute left-5 top-0">
-        <button className="cursor-pointer">
+        <button className="cursor-pointer" onClick={() => navigate("/")}>
           <span className="sr-only">Anisul Haque's Profolio</span>
           <img
             alt="Your Company"
-            className="h-8 w-auto sm:h-24"
+            className="w-20 sm:h-24 "
             src="/logo.svg"
           />
         </button>

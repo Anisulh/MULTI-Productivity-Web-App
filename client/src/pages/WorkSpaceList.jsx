@@ -177,10 +177,10 @@ export default function WorkSpaceList() {
   return (
     <div>
       <MobileNav />
-      <div className="flex sm:overflow-hidden ">
+      <div className=" flex sm:overflow-hidden ">
         <SideNavigation workSpaces={workSpaces} />
         <div className="h-screen flex-1 ">
-          <div className="w-full border flex items-center p-5 ">
+          <div className="w-full border flex items-center py-5 sm:py-0 sm:p-5 ">
             <Link
               to={`/workspaces/${workSpaceID}/list`}
               className="px-5 text-md textUnderline text-indigo-600"
@@ -194,7 +194,7 @@ export default function WorkSpaceList() {
               Board View
             </Link>
           </div>
-          <div className="p-5 h-screen ">
+          <div className=" p-5 h-screen ">
             <h1 className="text-2xl font-bold">
               <span>{workSpace.name}</span>
               <span>: ListView</span>
@@ -224,7 +224,7 @@ export default function WorkSpaceList() {
           </div>
           <Tooltip message={"Add Task"}>
             <button
-              className=" absolute bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
+              className=" fixed bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
               onClick={handleOpen}
             >
               <PlusIcon className="h-6 w-6" />

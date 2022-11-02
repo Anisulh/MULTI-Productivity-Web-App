@@ -94,7 +94,7 @@ function Dashboard() {
           </div>
           <Tooltip message={"Create workspace"}>
             <button
-              className=" absolute bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
+              className=" fixed bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
               onClick={handleOpen}
             >
               <PlusIcon className="h-6 w-6" />

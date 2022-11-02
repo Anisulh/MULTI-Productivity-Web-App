@@ -54,7 +54,7 @@ function WorkSpaceBoard() {
       <div className="flex ">
         <SideNavigation workSpaces={workSpaces} />
         <div className="h-screen flex-1 sm:overflow-hidden">
-          <div className="w-full border flex items-center p-5 ">
+          <div className="w-full border flex items-center py-5 sm:py-0 sm:p-5 ">
             <Link
               to={`/workspaces/${workSpaceID}/list`}
               className="px-5 text-md font-medium hover:text-indigo-600 link-underline link-underline-black"
@@ -68,12 +68,12 @@ function WorkSpaceBoard() {
               Board View
             </Link>
           </div>
-          <div className="p-7 h-screen">
-            <h1 className="text-2xl font-bold">
+          <div className="sm:p-5 h-screen">
+            <h1 className="text-2xl font-bold p-5 sm:p-0">
               <span>{workSpace.name}</span>
               <span>: BoardView</span>
             </h1>
-            <div className=" sm:flex height-85 overflow-y-hidden z-50">
+            <div className="sm:flex sm:height-85 overflow-y-hidden z-50 mt-2">
               {lists.length > 0 ? (
                 lists?.map((list) => {
                   return (
@@ -89,7 +89,7 @@ function WorkSpaceBoard() {
       </div>
       <Tooltip message={"Add list"}>
         <button
-          className=" absolute bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
+          className=" fixed bottom-5 right-5 md:right-10 md:bottom-10 p-3 rounded-full border bg-indigo-600 text-white hover:bg-indigo-400"
           onClick={handleOpen}
         >
           <PlusIcon className="h-6 w-6" />
