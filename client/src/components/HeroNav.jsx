@@ -4,12 +4,11 @@ import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
 import { useNavigate } from "react-router-dom";
 
-function HeroNav({ homeRef, aboutRef, featuresRef }) {
+function HeroNav({ homeRef, featuresRef }) {
   const navigate = useNavigate();
   const navigation = [
     { name: "Home", ref: homeRef },
     { name: "Features", ref: featuresRef },
-    { name: "About", ref: aboutRef },
   ];
   return (
     <div className="relative overflow-hidden bg-white">
