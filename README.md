@@ -2,6 +2,10 @@
 
 MULTI is a productivity based web application that allows users to organize tasks in a more simpler digestable manner.
 
+## Check it out:
+
+https://multi-productivity.herokuapp.com/
+
 ## Tech Stack
 
 Database: Mongodb
